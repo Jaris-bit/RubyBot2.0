@@ -1,0 +1,30 @@
+git-installer.exe
+imagemagick-installer.exe
+node-installer.msi
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+logs/
+*.log
+
+# Session data
+session/
+RubySession/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+tmp/
+.tmp/
+
+# OS files
+.DS_Store
+Thumbs.db
