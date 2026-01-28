@@ -1,58 +1,58 @@
-let handler = async (m, { conn }) => {
-  const texto = `
-🆔✨⊹ 𝐂𝐨𝐦𝐚𝐧𝐝𝐨𝐬 𝐝𝐞 𝐩𝐞𝐫𝐟𝐢𝐥 𝐩𝐚𝐫𝐚 𝐯𝐞𝐫, 𝐜𝐨𝐧𝐟𝐢𝐠𝐮𝐫𝐚𝐫 𝐲 𝐜𝐨𝐦𝐩𝐫𝐨𝐛𝐚𝐫 𝐞𝐬𝐭𝐚𝐝𝐨𝐬 𝐝𝐞 𝐭𝐮 𝐩𝐞𝐫𝐟𝐢𝐥 📇🔍
+import fs from 'fs';
 
-░ ⃝🌀ᩧ᳕ᬵ *#reg • #verificar • #register*
+let handler = async (m, { conn, usedPrefix }) => {
+  // --- REACCIÓN DINÁMICA ---
+  const reaccionesPerfil = ['🆔', '💍', '💌', '👤', '🎭'];
+  await m.react(reaccionesPerfil[Math.floor(Math.random() * reaccionesPerfil.length)]);
+
+  // --- LÓGICA DE IMAGEN DINÁMICA ---
+  let pp = 'https://image2url.com/r2/default/images/1769566915633-060e3bca-0206-4780-9c4e-32a33fd6d751.jpeg'; 
+  try {
+    if (fs.existsSync('./src/database/menu.json')) {
+      const json = JSON.parse(fs.readFileSync('./src/database/menu.json', 'utf-8'));
+      if (json.menuImg) pp = json.menuImg;
+    }
+  } catch (e) { 
+    console.log("Error al leer menu.json");
+  }
+
+  const texto = `
+🆔✨⊹ 𝐂𝐨𝐦𝐚𝐧𝐝𝐨𝐬 𝐝𝐞 𝐩𝐞𝐫𝐟𝐢𝐥 ⊹ 📇🔍
+
+*¿Vienes a cambiar tu destino o a buscar a tu alma gemela?* 💍🎭
+
+░ ⃝🌀ᩧ᳕ᬵ *${usedPrefix}reg • #verificar*
 > ✦ Registra tu nombre y edad en el bot.
-░ ⃝🌀ᩧ᳕ᬵ *#unreg*
+░ ⃝🌀ᩧ᳕ᬵ *${usedPrefix}unreg*
 > ✦ Elimina tu registro del bot.
-░ ⃝🌀ᩧ᳕ᬵ *#profile*
+░ ⃝🌀ᩧ᳕ᬵ *${usedPrefix}profile*
 > ✦ Muestra tu perfil de usuario.
-░ ⃝🌀ᩧ᳕ᬵ *#marry* [mension / etiquetar]
-> ✦ Propón matrimonio a otro usuario.
-░ ⃝🌀ᩧ᳕ᬵ *#divorce*
-> ✦ Divorciarte de tu pareja.
-░ ⃝🌀ᩧ᳕ᬵ *#setgenre • #setgenero*
-> ✦ Establece tu género en el perfil del bot.
-░ ⃝🌀ᩧ᳕ᬵ *#delgenre • #delgenero*
-> ✦ Elimina tu género del perfil del bot.
-░ ⃝🌀ᩧ᳕ᬵ *#setbirth • #setnacimiento*
-> ✦ Establece tu fecha de nacimiento en el perfil del bot.
-░ ⃝🌀ᩧ᳕ᬵ *#delbirth • #delnacimiento*
-> ✦ Elimina tu fecha de nacimiento del perfil del bot.
-░ ⃝🌀ᩧ᳕ᬵ *#setdescription • #setdesc*
-> ✦ Establece una descripción en tu perfil del bot.
-░ ⃝🌀ᩧ᳕ᬵ *#deldescription • #deldesc*
-> ✦ Elimina la descripción de tu perfil del bot.
-░ ⃝🌀ᩧ᳕ᬵ *#lb • #lboard* + <Paginá>
-> ✦ Top de usuarios con más (experiencia y nivel).
-░ ⃝🌀ᩧ᳕ᬵ *#level • #lvl* + <@Mencion>
-> ✦ Ver tu nivel y experiencia actual.
-░ ⃝🌀ᩧ᳕ᬵ *#comprarpremium • #premium*
-> ✦ Compra un pase premium para usar el bot sin límites.
-░ ⃝🌀ᩧ᳕ᬵ *#confesiones • #confesar*
-> ✦ Confiesa tus sentimientos a alguien de manera anonima.
+░ ⃝🌀ᩧ᳕ᬵ *${usedPrefix}marry* + <@mencion>
+> ✦ Propón matrimonio... si te atreves al compromiso. 💍
+░ ⃝🌀ᩧ᳕ᬵ *${usedPrefix}divorce*
+> ✦ Rompe el corazón de alguien y divórciate. 💔
+░ ⃝🌀ᩧ᳕ᬵ *${usedPrefix}setgenre • #setgenero*
+> ✦ Define quién eres ante el mundo.
+░ ⃝🌀ᩧ᳕ᬵ *${usedPrefix}setbirth • #setnacimiento*
+> ✦ No olvides el día que llegaste a este mundo.
+░ ⃝🌀ᩧ᳕ᬵ *${usedPrefix}setdescription • #setdesc*
+> ✦ Cuéntale tu historia a los demás.
+░ ⃝🌀ᩧ᳕ᬵ *${usedPrefix}lb • #lboard*
+> ✦ El podio de los más grandes y poderosos.
+░ ⃝🌀ᩧ᳕ᬵ *${usedPrefix}level • #lvl*
+> ✦ Comprueba qué tan lejos has llegado.
+░ ⃝🌀ᩧ᳕ᬵ *${usedPrefix}premium*
+> ✦ Consigue el pase VIP para un trato especial. ✨
+░ ⃝🌀ᩧ᳕ᬵ *${usedPrefix}confesar*
+> ✦ Di lo que sientes en secreto... el drama anónimo. 💌
 ╰────︶.︶ ⸙ ͛ ͎ ͛  ︶.︶ ੈ₊˚༅
   `.trim();
 
+  // ENVÍO SIMPLIFICADO: Sin externalAdReply para evitar bloqueos de red
   await conn.sendMessage(m.chat, {
-    image: { url: 'https://files.catbox.moe/a2cyzt.jpeg' },
+    image: { url: pp },
     caption: texto,
-    contextInfo: {
-      mentionedJid: [m.sender],
-      externalAdReply: {
-        title: '🆔 Perfil y Ajustes de Usuario',
-        body: 'Configura tu identidad en el bot',
-        thumbnail: icons,
-        mediaType: 1,
-        renderLargerThumbnail: false,
-        showAdAttribution: true,
-        mediaUrl: 'https://whatsapp.com/channel/0029VakLbM76mYPPFL0IFI3P',
-        sourceUrl: 'https://whatsapp.com/channel/0029VakLbM76mYPPFL0IFI3P',
-        newsletterJid: '120363335626706839@newsletter',
-        newsletterName: '⏤͟͞ू⃪፝͜⁞⟡『 𝙍𝙪𝙗𝙮 𝙃𝙤𝙨𝙝𝙞𝙣𝙤 𝘽𝙤𝙩 』࿐⟡'
-      }
-    }
+    mentions: [m.sender]
   }, { quoted: m });
 };
 

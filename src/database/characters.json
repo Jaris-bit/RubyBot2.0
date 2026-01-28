@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "name": "Kari",
+    "gender": "Mujer",
+    "value": "5000",
+    "source": "KataCumbas",
+    "img": [
+      "https://image2url.com/r2/default/images/1769553434811-f8a1422d-95a2-4ccc-82a2-e968938b5c99.jpg"
+    ],
+    "user": null,
+    "status": "Libre",
+    "votes": 0
+  },
+  {
+    "id": "2",
+    "name": "Kari",
+    "gender": "Mujer",
+    "value": "5000",
+    "source": "KataCumbas",
+    "img": [
+      "https://image2url.com/r2/default/images/1769553434811-f8a1422d-95a2-4ccc-82a2-e968938b5c99.jpg"
+    ],
+    "user": null,
+    "status": "Libre",
+    "votes": 0
+  },
+  {
+    "id": "3",
+    "name": "Kar",
+    "gender": "Mujer",
+    "value": "5000",
+    "source": "Mystic",
+    "img": [
+      "https://image2url.com/r2/default/images/1769566915633-060e3bca-0206-4780-9c4e-32a33fd6d751.jpeg"
+    ],
+    "user": "50496926150@s.whatsapp.net",
+    "status": "Reclamado",
+    "votes": 0,
+    "lastInteraction": 1769570294176
+  }
+]

@@ -1,5 +1,21 @@
-let handler = async (m, { conn }) => {
+import fs from 'fs';
 
+let handler = async (m, { conn }) => {
+  // --- REACCIÓN ÚNICA POR COMANDO ---
+  const reacciones = ['💰', '🎮', '💎', '🎰', '🧧', '💵'];
+  const rando = reacciones[Math.floor(Math.random() * reacciones.length)];
+  await m.react(rando);
+
+  // --- LÓGICA DE IMAGEN DINÁMICA ---
+  let pp = 'https://image2url.com/r2/default/images/1769566915633-060e3bca-0206-4780-9c4e-32a33fd6d751.jpeg'; 
+  try {
+    if (fs.existsSync('./src/database/menu.json')) {
+      const json = JSON.parse(fs.readFileSync('./src/database/menu.json', 'utf-8'));
+      if (json.menuImg) pp = json.menuImg;
+    }
+  } catch (e) { 
+    console.log("Error al leer menu.json");
+  }
 
   const texto = `
 💰🎮⊹ 𝐂𝐨𝐦𝐚𝐧𝐝𝐨𝐬 𝐝𝐞 𝐞𝐜𝐨𝐧𝐨𝐦𝐢́𝐚 𝐲 𝐑𝐏𝐆 𝐩𝐚𝐫𝐚 𝐠𝐚𝐧𝐚𝐫 𝐝𝐢𝐧𝐞𝐫𝐨 𝐲 𝐨𝐭𝐫𝐨𝐬 𝐫𝐞𝐜𝐮𝐫𝐬𝐨𝐬 🏆💎⊹
@@ -21,8 +37,8 @@ let handler = async (m, { conn }) => {
 ൃ⵿꤬ᩚ̸̷͠ᩘ🎀̷̸ᩚ⃨⢾ ֺ ֢ ᮫  ─ *#cartera • #wallet*
 > ✦ Ver tus ${m.moneda} en la cartera.
 ൃ⵿꤬ᩚ̸̷͠ᩘ🍨̷̸ᩚ⃨⢾ ֺ ֢ ᮫  ─ *#banco • #bank*
-> ✦ Ver tus ${m.moneda} en el banco.
-ൃ⵿꤬ᩚ̸̷͠ᩘ🌸̷̸ᩚ⃨⢾ ֺ ֢ ᮫ ⵿ ─ *#deposit • #depositar • #d*
+> ✦ Ver tus ${m.moneda} en la banco.
+ൃ⵿꤬ᩚ̸̷͠ᩘ🌸̷̸ᩚ⃨⢾ ֺ ֢ ᮫ ⵿ ─  *#deposit • #depositar • #d*
 > ✦ Deposita tus ${m.moneda} al banco.
 ൃ⵿꤬ᩚ̸̷͠ᩘ🪷̷̸ᩚ⃨⢾ ֺ ֢ ᮫  ─ *#with • #retirar • #withdraw*
 > ✦ Retira tus ${m.moneda} del banco.
@@ -60,27 +76,26 @@ let handler = async (m, { conn }) => {
 > ✦ Reclama tu dulce o truco (Solo en Halloween).
 ൃ⵿꤬ᩚ̸̷͠ᩘ🌸̷̸ᩚ⃨⢾ ֺ ֢ ᮫ ⵿ ─ *#christmas • #navidad*
 > ✦ Reclama tu regalo navideño (Solo en Navidad).
-╰────︶.︶ ⸙ ͛ ͎ ͛  ︶.︶ ੈ₊˚༅,
+╰────︶.︶ ⸙ ͛ ͎ ͛  ︶.︶ ੈ₊˚༅
   `.trim();
 
-  conn.sendFile(m.chat, 'https://files.catbox.moe/hs7g62.jpg', 'descargas.jpg', texto, m, false, {
+  await conn.sendMessage(m.chat, {
+    image: { url: pp },
+    caption: texto,
     contextInfo: {
       mentionedJid: [m.sender],
       externalAdReply: {
-        title: '🌵 ¡chambea, gana y diviertete con estos grandiosos comandos!',
-        body: '🤖 comandos de economía y rpg 🌟',
-        thumbnailUrl: 'https://files.catbox.moe/bi19e7.png',
+        title: '💰 Economía & RPG',
+        body: 'RubyBot 2.0',
+        thumbnailUrl: pp,
         mediaType: 1,
-        renderLargerThumbnail: false,
-        showAdAttribution: true,
-        mediaUrl: 'https://whatsapp.com/channel/0029VakLbM76mYPPFL0IFI3P',
-        sourceUrl: 'https://whatsapp.com/channel/0029VakLbM76mYPPFL0IFI3P',
-        newsletterJid: '120363335626706839@newsletter',
-        newsletterName: '⏤͟͞ू⃪፝͜⁞⟡『 𝙍𝙪𝙗𝙮 𝙃𝙤𝙨𝙝𝙞𝙣𝙤 𝘽𝙤𝙩 』࿐⟡'
+        renderLargerThumbnail: false
       }
     }
-  });
+  }, { quoted: m });
 };
 
 handler.command = ['menueconomia', 'rpgmenu', 'menurpg'];
+handler.register = true;
+
 export default handler;

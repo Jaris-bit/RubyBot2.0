@@ -4,44 +4,19 @@ const charactersFilePath = './src/database/characters.json';
 const haremFilePath = './src/database/harem.json';
 
 export const cooldowns = {};
-
 global.activeRolls = global.activeRolls || {};
 
 async function loadCharacters() {
     try {
         const data = await fs.readFile(charactersFilePath, 'utf-8');
-        return JSON.parse(data);
-    } catch (error) {
-        throw new Error('❀ No se pudo cargar el archivo characters.json.');
-    }
-}
-
-async function saveCharacters(characters) {
-    try {
-        await fs.writeFile(charactersFilePath, JSON.stringify(characters, null, 2), 'utf-8');
-    } catch (error) {
-        throw new Error('❀ No se pudo guardar el archivo characters.json.');
-    }
-}
-
-async function loadHarem() {
-    try {
-        const data = await fs.readFile(haremFilePath, 'utf-8');
-        return JSON.parse(data);
+        const parsed = JSON.parse(data);
+        return Array.isArray(parsed) ? parsed : [];
     } catch (error) {
         return [];
     }
 }
 
-async function saveHarem(harem) {
-    try {
-        await fs.writeFile(haremFilePath, JSON.stringify(harem, null, 2), 'utf-8');
-    } catch (error) {
-        throw new Error('❀ No se pudo guardar el archivo harem.json.');
-    }
-}
-
-let handler = async (m, { conn }) => {
+let handler = async (m, { conn, usedPrefix }) => {
     const userId = m.sender;
     const now = Date.now();
 
@@ -49,18 +24,30 @@ let handler = async (m, { conn }) => {
         const remainingTime = Math.ceil((cooldowns[userId] - now) / 1000);
         const minutes = Math.floor(remainingTime / 60);
         const seconds = remainingTime % 60;
-        return await conn.reply(m.chat, `( ⸝⸝･̆⤚･̆⸝⸝) ¡𝗗𝗲𝗯𝗲𝘀 𝗲𝘀𝗽𝗲𝗿𝗮𝗿 *${minutes} minutos y ${seconds} segundos* 𝗽𝗮𝗿𝗮 𝘃𝗼𝗹𝘃𝗲𝗿 𝗮 𝘂𝘀𝗮𝗿 *#rw* 𝗱𝗲 𝗻𝘂𝗲𝘃𝗼.`, m);
+        return await conn.reply(m.chat, `( ⸝⸝･̆⤚･̆⸝⸝) ¡𝗗𝗲𝗯𝗲𝘀 𝗲𝘀𝗽𝗲𝗿𝗮𝗿 *${minutes}m y ${seconds}s* 𝗽𝗮𝗿𝗮 𝘃𝗼𝗹𝘃𝗲𝗿 𝗮 𝘂𝘀𝗮𝗿 *#rw*!`, m);
     }
 
     try {
         const characters = await loadCharacters();
-        const randomCharacter = characters[Math.floor(Math.random() * characters.length)];
-        const randomImage = randomCharacter.img[Math.floor(Math.random() * randomCharacter.img.length)];
 
-        const harem = await loadHarem();
-        const userEntry = harem.find(entry => entry.characterId === randomCharacter.id);
+        if (characters.length === 0) {
+            return await conn.reply(m.chat, `*¡Qué vacío está este mundo!* 🌌✨\nNo hay personajes registrados. \n\n> 💡 *Usa:* \`${usedPrefix}addcharacter\` para empezar la historia.`, m);
+        }
+
+        // --- SELECCIÓN DEL PERSONAJE ---
+        const randomCharacter = characters[Math.floor(Math.random() * characters.length)];
         
-        // Formato para el estado (más limpio)
+        // --- SELECCIÓN DE IMAGEN (MEJORADA) ---
+        // Si solo hay una imagen, el índice siempre será 0
+        const charImages = randomCharacter.img || [];
+        if (charImages.length === 0) {
+            return await conn.reply(m.chat, `*¡Error!* 🎭 El personaje *${randomCharacter.name}* no tiene fotos registradas.`, m);
+        }
+        
+        const randomImage = charImages.length === 1 
+            ? charImages[0] 
+            : charImages[Math.floor(Math.random() * charImages.length)];
+
         const statusMessage = randomCharacter.user 
             ? `🚫 Ocupado (@${randomCharacter.user.split('@')[0]})` 
             : '✅ Libre';
@@ -83,15 +70,22 @@ let handler = async (m, { conn }) => {
 📖 𝐅𝐮𝐞𝐧𝐭𝐞  ╰┈➤ *${randomCharacter.source}*
 🆔 𝐈𝐃      ╰┈➤ *${randomCharacter.id}*
 
-⎯⎯⎯⎯⎯⎯  ׁ︩︪᷼  ᮫ ︪︩ໍ ܻ݊᷼🍪ܻ݊᷼ᩨᤢ ︩︪᷼ ᮫ ࣫⎯⎯⎯⎯⎯⎯⎯`;
+⎯⎯⎯⎯⎯⎯  ׁ︩︪᷼  ᮫ ︪︩ໍ ܻ݊᷼🍪ܻ݊᷼ᩨᤢ ︩︪᷼ ᮫ ࣫⎯⎯⎯⎯⎯⎯⎯`.trim();
 
-        const mentions = statusMessage.includes('@') ? [randomCharacter.user] : [];
-        await conn.sendFile(m.chat, randomImage, `${randomCharacter.name}.jpg`, message, m, { mentions });
+        const mentions = randomCharacter.user ? [randomCharacter.user] : [];
+        
+        // Enviamos la imagen con un pequeño delay para asegurar la carga
+        await conn.sendMessage(m.chat, { 
+            image: { url: randomImage }, 
+            caption: message, 
+            mentions 
+        }, { quoted: m });
 
         cooldowns[userId] = now + 15 * 60 * 1000;
 
     } catch (error) {
-        await conn.reply(m.chat, `✘ 𝗘𝗿𝗿𝗼𝗿 𝗮𝗹 𝗰𝗮𝗿𝗴𝗮𝗿 𝗲𝗹 𝗽𝗲𝗿𝘀𝗼𝗻𝗮𝗷𝗲: ${error.message}`, m);
+        console.error(error);
+        await conn.reply(m.chat, `*¡Drama en el sistema!* 🥀 No se pudo mostrar el personaje.`, m);
     }
 };
 

@@ -1,4 +1,16 @@
+import fs from 'fs';
+
 let handler = async (m, { conn }) => {
+  // --- LÓGICA DE IMAGEN DINÁMICA ---
+  let pp = 'https://files.catbox.moe/8iug4q.jpeg'; // Imagen por defecto original
+  try {
+    if (fs.existsSync('./src/database/menu.json')) {
+      const json = JSON.parse(fs.readFileSync('./src/database/menu.json', 'utf-8'));
+      if (json.menuImg) pp = json.menuImg;
+    }
+  } catch (e) { console.log("Error al leer menu.json") }
+  // ---------------------------------
+
   const texto = `
 🎌✨⊹ 𝐂𝐨𝐦𝐚𝐧𝐝𝐨𝐬 𝐝𝐞 𝐫𝐞𝐚𝐜𝐜𝐢𝐨𝐧𝐞𝐬 𝐝𝐞 𝐚𝐧𝐢𝐦𝐞 💢🎭⊹
 
@@ -74,21 +86,17 @@ let handler = async (m, { conn }) => {
   `.trim();
 
   await conn.sendMessage(m.chat, {
-    image: { url: 'https://files.catbox.moe/8iug4q.jpeg' },
+    image: { url: pp },
     caption: texto,
     contextInfo: {
       mentionedJid: [m.sender],
       externalAdReply: {
         title: '🎌 Reacciones de Anime',
-        body: 'Expresa tus emociones con estilo',
-        thumbnail: icons,
+        body: 'RubyBot 2.0 | Expresa tus emociones',
+        thumbnail: global.icons || null,
         mediaType: 1,
         renderLargerThumbnail: false,
-        showAdAttribution: true,
-        mediaUrl: 'https://whatsapp.com/channel/0029VakLbM76mYPPFL0IFI3P',
-        sourceUrl: 'https://whatsapp.com/channel/0029VakLbM76mYPPFL0IFI3P',
-        newsletterJid: '120363335626706839@newsletter',
-        newsletterName: 'p⏤͟͞ू⃪፝͜⁞⟡『 𝙍𝙪𝙗𝙮 𝙃𝙤𝙨𝙝𝙞𝙣𝙤 𝘽𝙤𝙩 』࿐⟡'
+        sourceUrl: global.redes || '' 
       }
     }
   }, { quoted: m });

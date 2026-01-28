@@ -8,7 +8,6 @@ const cwd = process.cwd();
 let handler = async (m, { conn, args }) => {
   let userId = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.sender;
 
-
   let name = await conn.getName(userId);
 
   let user = global.db.data.users[userId];
@@ -22,18 +21,8 @@ let handler = async (m, { conn, args }) => {
   let totalreg = Object.keys(global.db.data.users).length;
   let totalCommands = Object.values(global.plugins).filter(v => v.help && v.tags).length;
 
-  const gifVideosDir = path.join(cwd, 'src', 'menu');
-  if (!fs.existsSync(gifVideosDir)) {
-    console.error('El directorio no existe:', gifVideosDir);
-    return;
-  }
-
-  const gifVideos = fs.readdirSync(gifVideosDir)
-    .filter(file => file.endsWith('.mp4'))
-    .map(file => path.join(gifVideosDir, file));
-
-  const randomGif = gifVideos[Math.floor(Math.random() * gifVideos.length)];
-
+  // URL de la imagen específica
+  const defaultImage = 'https://image2url.com/r2/default/images/1769566915633-060e3bca-0206-4780-9c4e-32a33fd6d751.jpeg';
   let txt = `
 ୨୧‿̥̣‿̣̥̣̇‿̥̣୨୧‿̥̣‿̣̥̣̇‿̥̣୨୧‿̥̣‿̣̥̣̇‿̥̣୨୧୧‿̥̣‿̣̥̣̇‿̥̣୨୧
 ᰔ🩵𝙃𝙤𝙡𝙖! ${name} 𝙈𝙞 𝙣𝙤𝙢𝙗𝙧𝙚 𝙚𝙨 *Ruby Hoshino* 𝙮  𝙏𝙚 𝙙𝙚𝙨𝙚𝙤 𝙪𝙣𝙖𝙨 𝙛𝙚𝙡𝙞𝙘𝙚𝙨 𝙛𝙞𝙚𝙨𝙩𝙖𝙨 (≧◡≦) 🎄

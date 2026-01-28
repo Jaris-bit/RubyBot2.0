@@ -1,4 +1,22 @@
+import fs from 'fs';
+
 let handler = async (m, { conn }) => {
+  // --- REACCIÓN ÚNICA ALEATORIA ---
+  const reaccionesGrupo = ['👥', '🔧', '🛡️', '📢', '⚙️', '⚖️'];
+  const reacc = reaccionesGrupo[Math.floor(Math.random() * reaccionesGrupo.length)];
+  await m.react(reacc);
+
+  // --- LÓGICA DE IMAGEN DINÁMICA ---
+  let pp = 'https://image2url.com/r2/default/images/1769566915633-060e3bca-0206-4780-9c4e-32a33fd6d751.jpeg'; 
+  try {
+    if (fs.existsSync('./src/database/menu.json')) {
+      const json = JSON.parse(fs.readFileSync('./src/database/menu.json', 'utf-8'));
+      if (json.menuImg) pp = json.menuImg;
+    }
+  } catch (e) { 
+    console.log("Error al leer menu.json, usando imagen por defecto");
+  }
+
   const texto = `
 👥✨⊹ 𝐂𝐨𝐦𝐚𝐧𝐝𝐨𝐬 𝐝𝐞 𝐠𝐫𝐮𝐩𝐨𝐬 𝐩𝐚𝐫𝐚 𝐮𝐧𝐚 𝐦𝐞𝐣𝐨𝐫 𝐠𝐞𝐬𝐭𝐢𝐨́𝐧 𝐝𝐞 𝐞𝐥𝐥𝐨𝐬 🔧📢⊹
 
@@ -70,25 +88,22 @@ let handler = async (m, { conn }) => {
   `.trim();
 
   await conn.sendMessage(m.chat, {
-    image: { url: 'https://files.catbox.moe/i64e5t.jpeg' },
+    image: { url: pp },
     caption: texto,
     contextInfo: {
       mentionedJid: [m.sender],
       externalAdReply: {
-        title: '👥 Gestión de Grupos',
-        body: 'Herramientas para administradores',
-        thumbnail: icons,
+        title: '👥 Panel de Administración',
+        body: 'Gestión eficiente de grupos',
+        thumbnailUrl: pp,
         mediaType: 1,
-        renderLargerThumbnail: false,
-        showAdAttribution: true,
-        mediaUrl: 'https://whatsapp.com/channel/0029VakLbM76mYPPFL0IFI3P',
-        sourceUrl: 'https://whatsapp.com/channel/0029VakLbM76mYPPFL0IFI3P',
-        newsletterJid: '120363335626706839@newsletter',
-        newsletterName: '⏤͟͞ू⃪፝͜⁞⟡『 𝙍𝙪𝙗𝙮 𝙃𝙤𝙨𝙝𝙞𝙣𝙤 𝘽𝙤𝙩 』࿐⟡'
+        renderLargerThumbnail: false
       }
     }
   }, { quoted: m });
 };
 
 handler.command = ['menugrupo', 'gruposmenu'];
+handler.group = true; // Solo ejecutable en grupos
+
 export default handler;

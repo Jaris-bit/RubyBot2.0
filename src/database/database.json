@@ -1,7 +1,7 @@
 {
   "users": {
     "50498729368@s.whatsapp.net": {
-      "exp": 118,
+      "exp": 805,
       "coin": 10,
       "joincount": 1,
       "diamond": 3,
@@ -38,9 +38,9 @@
       "warn": 0
     },
     "18294304503@s.whatsapp.net": {
-      "exp": 128,
-      "coin": 10,
-      "joincount": 1,
+      "exp": 1029,
+      "coin": 50,
+      "joincount": 21,
       "diamond": 3,
       "lastadventure": 0,
       "health": 100,
@@ -53,15 +53,15 @@
       "lastmining": 0,
       "lastcodereg": 0,
       "muto": false,
-      "registered": false,
+      "registered": true,
       "genre": "",
       "birth": "",
       "marry": "",
       "description": "",
       "packstickers": null,
-      "name": "Jaris",
-      "age": -1,
-      "regTime": -1,
+      "name": "jaris",
+      "age": 20,
+      "regTime": 1769570713523,
       "afk": -1,
       "afkReason": "",
       "banned": false,
@@ -73,7 +73,7 @@
       "premiumTime": 0,
       "crime": 0,
       "warn": 0,
-      "commands": 2
+      "commands": 14
     },
     "51900549483@s.whatsapp.net": {
       "exp": 5,
@@ -111,9 +111,9 @@
       "premiumTime": 0
     },
     "50496926150@s.whatsapp.net": {
-      "exp": 61,
-      "coin": 10,
-      "joincount": 1,
+      "exp": 2352,
+      "coin": 50,
+      "joincount": 21,
       "diamond": 3,
       "lastadventure": 0,
       "health": 100,
@@ -126,15 +126,15 @@
       "lastmining": 0,
       "lastcodereg": 0,
       "muto": false,
-      "registered": false,
+      "registered": true,
       "genre": "",
       "birth": "",
       "marry": "",
       "description": "",
       "packstickers": null,
-      "name": "⃤⃤⃢🍃™𝑯𝑬𝑹𝑵𝑨𝑵𝑫𝑬𝒁º",
-      "age": -1,
-      "regTime": -1,
+      "name": "YJ-EspinoX",
+      "age": 19,
+      "regTime": 1769567250029,
       "afk": -1,
       "afkReason": "",
       "banned": false,
@@ -144,7 +144,7 @@
       "role": "*Chibi Aventurero/a V*🐙",
       "premium": false,
       "premiumTime": 0,
-      "commands": 3,
+      "commands": 64,
       "crime": 0,
       "warn": 0
     },
@@ -179,6 +179,41 @@
       "bank": 0,
       "level": 0,
       "role": "Nuv",
+      "premium": false,
+      "premiumTime": 0
+    },
+    "20015168381136@s.whatsapp.net": {
+      "exp": 4,
+      "coin": 10,
+      "joincount": 1,
+      "diamond": 3,
+      "lastadventure": 0,
+      "health": 100,
+      "lastclaim": 0,
+      "lastcofre": 0,
+      "lastdiamantes": 0,
+      "lastcode": 0,
+      "lastduel": 0,
+      "lastpago": 0,
+      "lastmining": 0,
+      "lastcodereg": 0,
+      "muto": false,
+      "registered": false,
+      "genre": "",
+      "birth": "",
+      "marry": "",
+      "description": "",
+      "packstickers": null,
+      "name": "⃤⃤⃢🍃™𝑯𝑬𝑹𝑵𝑨𝑵𝑫𝑬𝒁º",
+      "age": -1,
+      "regTime": -1,
+      "afk": -1,
+      "afkReason": "",
+      "banned": false,
+      "useDocument": false,
+      "bank": 0,
+      "level": 0,
+      "role": "*Chibi Aventurero/a V*🐙",
       "premium": false,
       "premiumTime": 0
     }
@@ -271,22 +306,22 @@
   },
   "stats": {
     "info-ping.js": {
-      "total": 5,
-      "success": 5,
-      "last": 1769562969611,
-      "lastSuccess": 1769562969611
+      "total": 6,
+      "success": 6,
+      "last": 1769566463569,
+      "lastSuccess": 1769566463569
     },
     "rg-verificar.js": {
-      "total": 3,
-      "success": 3,
-      "last": 1769562955332,
-      "lastSuccess": 1769562955332
+      "total": 5,
+      "success": 5,
+      "last": 1769570715152,
+      "lastSuccess": 1769570715152
     },
     "main-menulist.js": {
-      "total": 2,
-      "success": 2,
-      "last": 1769562494842,
-      "lastSuccess": 1769562494842
+      "total": 8,
+      "success": 8,
+      "last": 1769570723903,
+      "lastSuccess": 1769570723903
     },
     "rg-unreg.js": {
       "total": 3,
@@ -295,10 +330,142 @@
       "lastSuccess": 1769562966714
     },
     "gacha-addrw.js": {
-      "total": 5,
-      "success": 5,
-      "last": 1769563249577,
-      "lastSuccess": 1769563249577
+      "total": 12,
+      "success": 12,
+      "last": 1769571121932,
+      "lastSuccess": 1769571121932
+    },
+    "sticker-sticker.js": {
+      "total": 3,
+      "success": 3,
+      "last": 1769566460378,
+      "lastSuccess": 1769566460378
+    },
+    "main-menu.js": {
+      "total": 2,
+      "success": 0,
+      "last": 1769567265378,
+      "lastSuccess": 0
+    },
+    "main-menu2.js": {
+      "total": 6,
+      "success": 6,
+      "last": 1769568151052,
+      "lastSuccess": 1769568151052
+    },
+    "setimgmenu.js": {
+      "total": 6,
+      "success": 6,
+      "last": 1769570661181,
+      "lastSuccess": 1769570661181
+    },
+    "main-menuanime.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1769568270088,
+      "lastSuccess": 1769568270088
+    },
+    "main-menubusquedas.js": {
+      "total": 4,
+      "success": 4,
+      "last": 1769568442849,
+      "lastSuccess": 1769568442849
+    },
+    "main-menudescargas.js": {
+      "total": 3,
+      "success": 3,
+      "last": 1769568581445,
+      "lastSuccess": 1769568581445
+    },
+    "main-menueconomia+rpg.js": {
+      "total": 3,
+      "success": 3,
+      "last": 1769568701853,
+      "lastSuccess": 1769568701853
+    },
+    "main-menugacha.js": {
+      "total": 3,
+      "success": 3,
+      "last": 1769570784076,
+      "lastSuccess": 1769570784076
+    },
+    "main-menugrupo.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1769568816612,
+      "lastSuccess": 1769568816612
+    },
+    "main-menuherramientas.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1769568880013,
+      "lastSuccess": 1769568880013
+    },
+    "main-menujuegos.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1769568935094,
+      "lastSuccess": 1769568935094
+    },
+    "main-menumanual.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1769569258954,
+      "lastSuccess": 1769569258954
+    },
+    "main-menunsfw.js": {
+      "total": 4,
+      "success": 4,
+      "last": 1769570864762,
+      "lastSuccess": 1769570864762
+    },
+    "main-menuowner.js": {
+      "total": 8,
+      "success": 8,
+      "last": 1769569633300,
+      "lastSuccess": 1769569633300
+    },
+    "owner-setstatus.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1769569646999,
+      "lastSuccess": 1769569646999
+    },
+    "main-menuperfil.js": {
+      "total": 4,
+      "success": 4,
+      "last": 1769569807655,
+      "lastSuccess": 1769569807655
+    },
+    "main-runtime.js": {
+      "total": 2,
+      "success": 2,
+      "last": 1769569854628,
+      "lastSuccess": 1769569854628
+    },
+    "gacha-harem.js": {
+      "total": 3,
+      "success": 3,
+      "last": 1769570287087,
+      "lastSuccess": 1769570287087
+    },
+    "gacha-rollwaifu.js": {
+      "total": 10,
+      "success": 10,
+      "last": 1769570686352,
+      "lastSuccess": 1769570686352
+    },
+    "gacha-claim.js": {
+      "total": 4,
+      "success": 4,
+      "last": 1769570430313,
+      "lastSuccess": 1769570430313
+    },
+    "gacha-robar.js": {
+      "total": 4,
+      "success": 4,
+      "last": 1769570476167,
+      "lastSuccess": 1769570476167
     }
   },
   "msgs": {},

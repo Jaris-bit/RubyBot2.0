@@ -44,6 +44,6 @@ const handler = async (m, { text, usedPrefix, command }) => {
 };
 
 handler.command = ["addcharacter", "addrw"];
-handler.owner = true;
+//handler.owner = true;
 
 export default handler;

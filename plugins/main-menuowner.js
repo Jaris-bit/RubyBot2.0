@@ -1,116 +1,137 @@
-import moment from 'moment-timezone';
+import fs from 'fs';
 
-let handler = async (m, { conn, args }) => {
-let owner = `
-һ᥆ᥣᥲ! s᥆ᥡ  *${botname}*  ٩(˘◡˘)۶
-ᥲ𝗊ᥙí 𝗍іᥱᥒᥱs ᥣᥲ ᥣіs𝗍ᥲ ძᥱ ᥴ᥆mᥲᥒძ᥆s ძᥱ m᥆ძs ᥡ ᥆ᥕᥒᥱrs
+let handler = async (m, { conn, usedPrefix }) => {
+  // --- REACCIÓN DE AUTORIDAD ---
+  const reaccionesOwner = ['👑', '💻', '🔐', '🛡️', '⚙️', '⚡'];
+  await m.react(reaccionesOwner[Math.floor(Math.random() * reaccionesOwner.length)]);
+
+  // --- LÓGICA DE IMAGEN DINÁMICA ---
+  let pp = 'https://image2url.com/r2/default/images/1769566915633-060e3bca-0206-4780-9c4e-32a33fd6d751.jpeg'; 
+  try {
+    if (fs.existsSync('./src/database/menu.json')) {
+      const json = JSON.parse(fs.readFileSync('./src/database/menu.json', 'utf-8'));
+      if (json.menuImg) pp = json.menuImg;
+    }
+  } catch (e) { 
+    console.log("Error al leer menu.json");
+  }
+
+  // Variables de respaldo por si fallan las globales
+  let nBot = global.botname || 'RubyBot';
+  let nPack = global.packname || 'RubyBot-MD';
+  let nDev = global.dev || 'Dioneibi';
+
+  const texto = `
+һ᥆ᥣᥲ! s᥆ᥡ  *${nBot}* ٩(˘◡˘)۶
+*¿Viniste a darme órdenes o solo a admirar mi código?* 🎭✨
 
 »  ⊹˚• \`OWNERS\` •˚⊹
 
-❀ ᥴ᥆mᥲᥒძ᥆s ძᥱ m᥆ძᥱrᥲᥴіóᥒ ᥡ ᥴ᥆ᥒ𝗍r᥆ᥣ ᥲ᥎ᥲᥒzᥲძ᥆ ⍴ᥲrᥲ ᥆ᥕᥒᥱrs.
-ᰔᩚ *#addowner • #delowner*
+❀ ᥴ᥆mᥲᥒძ᥆s ძᥱ m᥆ძᥱrᥲᥴіóᥒ ᥡ ᥴ᥆ᥒ𝗍r᥆ᥣ ᥲ᥎ᥲᥒzᥲძ᥆ ⍴ᥲrᥲ ᥆ᥕ閲覧ers.
+ᰔᩚ *${usedPrefix}addowner • #delowner*
 > ✦ Agrega o elimina un número de la lista de owners.
-ᰔᩚ *#codigo*
+ᰔᩚ *${usedPrefix}codigo*
 > ✦ Crea un token o código de canjeó de códigos.
-ᰔᩚ *#backup • #copia*
+ᰔᩚ *${usedPrefix}backup • #copia*
 > ✦ Crear un respaldo de seguridad de la *db* del Bot.
-ᰔᩚ *#bcgc*
+ᰔᩚ *${usedPrefix}bcgc*
 > ✦ Envia un mensaje a todos los grupos donde este el Bot.
-ᰔᩚ *#cleanfiles*
+ᰔᩚ *${usedPrefix}cleanfiles*
 > ✦ Elimina archivos temporales.
-ᰔᩚ *#addcoins • #añadircoin*
+ᰔᩚ *${usedPrefix}addcoins • #añadircoin*
 > ✦ Añade coins a un usuario.
-ᰔᩚ *#userpremium • #addprem*
+ᰔᩚ *${usedPrefix}userpremium • #addprem*
 > ✦ Otorgar premium a un usuario.
-ᰔᩚ *#delprem #remove*
+ᰔᩚ *${usedPrefix}delprem #remove*
 > ✦ Quitar premium a un usuario.
-ᰔᩚ *#addexp • #añadirxp*
+ᰔᩚ *${usedPrefix}addexp • #añadirxp*
 > ✦ Añade XP a un usuario.
-ᰔᩚ *#autoadmin*
+ᰔᩚ *${usedPrefix}autoadmin*
 > ✦ El Bot dara admin automáticamente solo si el Bot es admin.
-ᰔᩚ *#listban • #banlist*
+ᰔᩚ *${usedPrefix}listban • #banlist*
 > ✦ Lista de usuarios y chats baneados.
-ᰔᩚ *#banuser*
+ᰔᩚ *${usedPrefix}banuser*
 > ✦ Banear a un usuario.
-ᰔᩚ *#unbanuser*
+ᰔᩚ *${usedPrefix}unbanuser*
 > ✦ Desbanear a un usuario.
-ᰔᩚ *#dsowner • #delai*
+ᰔᩚ *${usedPrefix}dsowner • #delai*
 > ✦ Elimina archivos innecesarios de sesión.
-ᰔᩚ *#cleartmp • #vaciartmp*
+ᰔᩚ *${usedPrefix}cleartmp • #vaciartmp*
 > ✦ Elimina archivo innecesarios de la carpeta tmp.
-ᰔᩚ *#block • #unblock*
+ᰔᩚ *${usedPrefix}block • #unblock*
 > ✦ Bloquear o desbloquear a un usuario del número del Bot.
-ᰔᩚ *#listblock • #blocklist*
+ᰔᩚ *${usedPrefix}listblock • #blocklist*
 > ✦ Ver listado de usuarios bloqueados.
-ᰔᩚ *#removecoin • #quitarcoin*
+ᰔᩚ *${usedPrefix}removecoin • #quitarcoin*
 > ✦ Quitar coins a un usuario.
-ᰔᩚ *#deletedatauser • #resetuser*
+ᰔᩚ *${usedPrefix}deletedatauser • #resetuser*
 > ✦ Restablecer los datos de un usuario.
-ᰔᩚ *#removexp • #quitarxp*
+ᰔᩚ *${usedPrefix}removexp • #quitarxp*
 > ✦ Quitar XP a un usuario.
-ᰔᩚ *#newgc #creargc*
+ᰔᩚ *${usedPrefix}newgc #creargc*
 > ✦ Crea un nuevo grupo desde el número del Bot.
-ᰔᩚ *#deletefile*
+ᰔᩚ *${usedPrefix}deletefile*
 > ✦ Elimina archivos del Bot
-ᰔᩚ *#get • #fetch*
+ᰔᩚ *${usedPrefix}get • #fetch*
 > ✦ Ver el estado de una página web.
-ᰔᩚ *#plugin • #getplugin*
+ᰔᩚ *${usedPrefix}plugin • #getplugin*
 > ✦ Extraer un plugin de los archivos del Bot.
-ᰔᩚ *#grouplist • #listgroup*
+ᰔᩚ *${usedPrefix}grouplist • #listgroup*
 > ✦ Ver listado de grupos en los que está unido el Bot.
-ᰔᩚ *#join • #invite*
+ᰔᩚ *${usedPrefix}join • #invite*
 > ✦ Agregar el Bot a un grupo mediante el enlace de invitación.
-ᰔᩚ *#leave • #salir*
+ᰔᩚ *${usedPrefix}leave • #salir*
 > ✦ Sacar el Bot de un grupo.
-ᰔᩚ *#let*
+ᰔᩚ *${usedPrefix}let*
 > ✦ Envia un mensaje con una duración de 1 hora.
-ᰔᩚ *#prefix*
+ᰔᩚ *${usedPrefix}prefix*
 > ✦ Ver o cambiar el prefijo del Bot.
-ᰔᩚ *#resetprefix*
+ᰔᩚ *${usedPrefix}resetprefix*
 > ✦ Restablecer el prefijo del Bot.
-ᰔᩚ *#reiniciar • #restart*
+ᰔᩚ *${usedPrefix}reiniciar • #restart*
 > ✦ Reiniciar el servidor del Bot.
-ᰔᩚ *#reunion • #meeting*
+ᰔᩚ *${usedPrefix}reunion • #meeting*
 > ✦ Envia un aviso de reunión a los owners.
-ᰔᩚ *#savejs • #savefile*
+ᰔᩚ *${usedPrefix}savejs • #savefile*
 > ✦ Guarda un archivo en una de las rutas del Bot.
-ᰔᩚ *#saveplugin*
+ᰔᩚ *${usedPrefix}saveplugin*
 > ✦ Guarda un plugin en la carpeta de comandos del Bot.
-ᰔᩚ *#setbanner*
+ᰔᩚ *${usedPrefix}setbanner*
 > ✦ Cambia la imagen del menu principal del Bot.
-ᰔᩚ *#setavatar*
+ᰔᩚ *${usedPrefix}setavatar*
 > ✦ Cambia la imagen del catálogo.
-ᰔᩚ *#addcmd • #setcmd*
+ᰔᩚ *${usedPrefix}addcmd • #setcmd*
 > ✦ Guarda un sticker/imagen como texto o comando.
-ᰔᩚ *#delcmd*
+ᰔᩚ *${usedPrefix}delcmd*
 > ✦ Elimina el texto/comando del Bot.
-ᰔᩚ *#cmdlist • #listcmd*
+ᰔᩚ *${usedPrefix}cmdlist • #listcmd*
 > ✦ Ver listado de textos/comandos.
-ᰔᩚ *#setimage • #setpfp*
+ᰔᩚ *${usedPrefix}setimage • #setpfp*
 > ✦ Cambia la foto del perfil del Bot.
-ᰔᩚ *#setmoneda*
+ᰔᩚ *${usedPrefix}setmoneda*
 > ✦ Cambia la moneda del Bot.
-ᰔᩚ *#setname*
+ᰔᩚ *${usedPrefix}setname*
 > ✦ Cambia el nombre del Bot
-ᰔᩚ *#setbio • #setstatus*
+ᰔᩚ *${usedPrefix}setbio • #setstatus*
 > ✦ Cambia la biografía del Bot.
-ᰔᩚ *#update*
+ᰔᩚ *${usedPrefix}update*
 > ✦ Actualiza el Bot a la versión más reciente de GitHub.
 `.trim();
 
-await conn.sendMessage(m.chat, {
-text: owner,
-contextInfo: {
-externalAdReply: {
-title: packname,
-body: dev,
-thumbnailUrl: banner,
-mediaType: 1,
-showAdAttribution: true,
-renderLargerThumbnail: true
-}
-}
-}, { quoted: m });
+  await conn.sendMessage(m.chat, {
+    image: { url: pp },
+    caption: texto,
+    contextInfo: {
+      mentionedJid: [m.sender],
+      externalAdReply: {
+        title: `👑 ${nPack}`,
+        body: `Dev: ${nDev}`,
+        thumbnailUrl: pp,
+        mediaType: 1,
+        renderLargerThumbnail: false
+      }
+    }
+  }, { quoted: m });
 };
 
 handler.help = ['mods'];

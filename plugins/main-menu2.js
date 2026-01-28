@@ -1,10 +1,20 @@
 import fetch from 'node-fetch';
+import fs from 'fs';
+
 const handler = async (m, {conn, usedPrefix, usedPrefix: _p, __dirname, text, isPrems}) => {
   if (usedPrefix == 'a' || usedPrefix == 'A') return;
+  
+  // --- LÓGICA DE IMAGEN DINÁMICA ---
+  let pp = 'https://image2url.com/r2/default/images/1769566915633-060e3bca-0206-4780-9c4e-32a33fd6d751.jpeg'; // Imagen por defecto
   try {
-    const pp = 'https://files.catbox.moe/u422b5.jpg';
-    // let vn = './media/menu.mp3'
-    const img = './Menu2.jpg';
+    if (fs.existsSync('./src/database/menu.json')) {
+      const json = JSON.parse(fs.readFileSync('./src/database/menu.json', 'utf-8'));
+      if (json.menuImg) pp = json.menuImg;
+    }
+  } catch (e) { console.log("Error al leer menu.json") }
+  // ---------------------------------
+
+  try {
     const d = new Date(new Date + 3600000);
     const locale = 'es-ES';
     const week = d.toLocaleDateString(locale, {weekday: 'long'});
@@ -19,9 +29,9 @@ const handler = async (m, {conn, usedPrefix, usedPrefix: _p, __dirname, text, is
     const more = String.fromCharCode(8206);
     const readMore = more.repeat(850);
     const taguser = '@' + m.sender.split('@s.whatsapp.net')[0];
-    const doc = ['pdf', 'zip', 'vnd.openxmlformats-officedocument.presentationml.presentation', 'vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'vnd.openxmlformats-officedocument.wordprocessingml.document'];
-    await m.react(emojis)
-    const document = doc[Math.floor(Math.random() * doc.length)];
+    
+    await m.react('🎵')
+    
     const str = `*☘️ M E N U  - A U D I O S ☘️*
 
 *NO ES NECESARIO USAR PREFIJO EN AUDIOS*
@@ -159,23 +169,33 @@ const handler = async (m, {conn, usedPrefix, usedPrefix: _p, __dirname, text, is
 ∘ _Se pudrio_
 ∘ _Gol!_`.trim();     
 
-    if (m.isGroup) { 
-      const fkontak2 = {'key': {'participants': '0@s.whatsapp.net', 'remoteJid': 'status@broadcast', 'fromMe': false, 'id': 'Halo'}, 'message': {'contactMessage': {'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}, 'participant': '0@s.whatsapp.net'};
-      conn.sendMessage(m.chat, {image: {url: pp}, caption: str.trim(), mentions: [...str.matchAll(/@([0-9]{5,16}|0)/g)].map((v) => v[1] + '@s.whatsapp.net')}, {quoted: m});
-    } else {
-      const fkontak2 = {'key': {'participants': '0@s.whatsapp.net', 'remoteJid': 'status@broadcast', 'fromMe': false, 'id': 'Halo'}, 'message': {'contactMessage': {'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}, 'participant': '0@s.whatsapp.net'};
-      conn.sendMessage(m.chat, {image: {url: pp}, caption: str.trim(), mentions: [...str.matchAll(/@([0-9]{5,16}|0)/g)].map((v) => v[1] + '@s.whatsapp.net')}, {quoted: fkontak2});
+    const fkontak2 = {'key': {'participants': '0@s.whatsapp.net', 'remoteJid': 'status@broadcast', 'fromMe': false, 'id': 'Halo'}, 'message': {'contactMessage': {'vcard': `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}, 'participant': '0@s.whatsapp.net'};
+    
+    const sendOptions = {
+      image: { url: pp }, 
+      caption: str, 
+      mentions: [...str.matchAll(/@([0-9]{5,16}|0)/g)].map((v) => v[1] + '@s.whatsapp.net')
+    };
+
+    try {
+      await conn.sendMessage(m.chat, sendOptions, {quoted: m.isGroup ? m : fkontak2});
+    } catch {
+      // Si la imagen falla, enviamos el texto solo
+      await conn.reply(m.chat, str, m, { mentions: sendOptions.mentions });
     }
-  } catch {
+
+  } catch (e) {
+    console.log(e)
     conn.reply(m.chat, '*Este menu tiene un error interno, por lo cual no fue posible enviarlo.*', m);
   }
 };
+
 handler.tags = ['main']
 handler.help = ['menu2']
 handler.command = ['menuaudios','menu2'];
 handler.register = true
 handler.exp = 50;
-handler.fail = null;
+
 export default handler;
 
 function clockString(ms) {
