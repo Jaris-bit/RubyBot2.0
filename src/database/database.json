@@ -1,7 +1,7 @@
 {
   "users": {
     "50498729368@s.whatsapp.net": {
-      "exp": 89,
+      "exp": 118,
       "coin": 10,
       "joincount": 1,
       "diamond": 3,
@@ -38,7 +38,7 @@
       "warn": 0
     },
     "18294304503@s.whatsapp.net": {
-      "exp": 78,
+      "exp": 128,
       "coin": 10,
       "joincount": 1,
       "diamond": 3,
@@ -72,7 +72,8 @@
       "premium": false,
       "premiumTime": 0,
       "crime": 0,
-      "warn": 0
+      "warn": 0,
+      "commands": 2
     },
     "51900549483@s.whatsapp.net": {
       "exp": 5,
@@ -110,7 +111,7 @@
       "premiumTime": 0
     },
     "50496926150@s.whatsapp.net": {
-      "exp": 8,
+      "exp": 61,
       "coin": 10,
       "joincount": 1,
       "diamond": 3,
@@ -143,7 +144,9 @@
       "role": "*Chibi Aventurero/a V*🐙",
       "premium": false,
       "premiumTime": 0,
-      "commands": 1
+      "commands": 3,
+      "crime": 0,
+      "warn": 0
     },
     "71906745159871@s.whatsapp.net": {
       "exp": 6,
@@ -290,6 +293,12 @@
       "success": 3,
       "last": 1769562966714,
       "lastSuccess": 1769562966714
+    },
+    "gacha-addrw.js": {
+      "total": 5,
+      "success": 5,
+      "last": 1769563249577,
+      "lastSuccess": 1769563249577
     }
   },
   "msgs": {},
